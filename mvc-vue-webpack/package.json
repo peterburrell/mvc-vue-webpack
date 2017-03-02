@@ -1,0 +1,40 @@
+{
+  "version": "1.0.0",
+  "name": "mvc-vue-webpack",
+  "description": "an asp.net mvc project with vue and webpack",
+  "author": "Peter Burrell <peterburrell@gmail.com>",
+  "private": true,
+  "scripts": {
+    "watch": "cross-env NODE_ENV=development webpack --progress --watch",
+    "build:dev": "cross-env NODE_ENV=development webpack --progress",
+    "build:prod": "cross-env NODE_ENV=production webpack --progress --hide-modules"
+  },
+  "dependencies": {
+    "axios": "^0.15.3",
+    "lodash": "^4.17.4",
+    "moment": "^2.17.1",
+    "numeral": "^2.0.4",
+    "vue": "^2.1.0"
+  },
+  "devDependencies": {
+    "babel-core": "^6.0.0",
+    "babel-loader": "^6.0.0",
+    "babel-preset-es2015": "^6.0.0",
+    "cross-env": "^3.0.0",
+    "css-loader": "^0.25.0",
+    "file-loader": "^0.9.0",
+    "node-sass": "^4.5.0",
+    "npm-run-all": "^4.0.2",
+    "sass-loader": "^5.0.1",
+    "vue-loader": "^10.0.0",
+    "vue-style-loader": "^1.0.0",
+    "vue-template-compiler": "^2.1.0",
+    "webpack": "^2.2.0",
+    "webpack-dev-server": "^2.2.0"
+  },
+  "-vs-binding": {
+    "ProjectOpened": [
+      "watch"
+    ]
+  }
+}
