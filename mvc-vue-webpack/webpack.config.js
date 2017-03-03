@@ -1,13 +1,18 @@
-﻿var path = require('path');
+﻿var fs = require('fs');
+var path = require('path');
 var webpack = require('webpack');
 
+// creates an entry with keys/values for each file in root of ./src directory
+function buildEntry() {
+    const reducer = (entry, file) => { entry[file.split(".").shift()] = `./src/${file}`; return entry; };
+
+    return fs.readdirSync(path.join(__dirname, "src"))
+        .filter(file => file.endsWith(".js"))
+        .reduce(reducer, {});
+}
+
 module.exports = {
-    entry: {
-        home: './src/home.js',
-        page1: './src/page1.js',
-        page2: './src/page2.js',
-        page3: './src/page3.js'
-    },
+    entry: buildEntry(),
     output: {
         path: path.resolve(__dirname, './dist'),
         publicPath: '/dist/',
