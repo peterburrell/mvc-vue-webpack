@@ -91,6 +91,8 @@
   <ItemGroup>
     <Content Include="Global.asax" />
     <Content Include="src\components\Page3.vue" />
+    <Content Include=".babelrc" />
+    <None Include="Properties\PublishProfiles\Release.pubxml" />
     <None Include="src\components\CurrentTime.vue" />
     <Content Include="src\page3.js" />
     <Content Include="src\page2.js" />
@@ -162,11 +164,24 @@
     <Error Condition="!Exists('..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props'))" />
     <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
   </Target>
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
+  <!-- npm build script -->
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <NpmBuildScript>npm run build:dev</NpmBuildScript>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <NpmBuildScript>npm run build:prod</NpmBuildScript>
+  </PropertyGroup>
+  <Target Name="NpmBuild">
+    <Exec Command="npm install" />
+    <Exec Command="$(NpmBuildScript)" />
   </Target>
+  <!-- call npm build script before project build -->
+  <Target Name="BeforeBuild" DependsOnTargets="NpmBuild">
+  </Target>
+  <!-- ensure that js build output in dist folder is included in publish -->
   <Target Name="AfterBuild">
+    <ItemGroup>
+      <Content Include="dist\*.js" />
+    </ItemGroup>
   </Target>
-  -->
 </Project>
